@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.*;
 
 public class Duke {
@@ -43,35 +44,49 @@ public class Duke {
             Scanner in = new Scanner(System.in);
             line = in.nextLine();
             linePart = line.split(" ", 2);
-            switch (line.toUpperCase()) {
-                case "LIST":
-                    GetList();
-                    break;
-                case "BYE":
-                    System.out.println("Bye. Hope to see you again soon!");
-                    return;
-                default:
-                    switch (linePart[0].toUpperCase())
-                    {
-                        case "DONE":
-			                markAsDone(Integer.parseInt(linePart[1]));
-                            break;
-                        case "TODO":
-                            addTask(new Todo(linePart[1]));
-                            break;
-                        case "DEADLINE":
-                            String DeadlineArr[] = linePart[1].split("/by", 2);
-                            addTask(new Deadlines(DeadlineArr[0],DeadlineArr[1])); ;
-                            break;
-                        case "EVENT":
-                            String EventArr[] = linePart[1].split("/at", 2);
-                            addTask(new Events(EventArr[0],EventArr[1])); ;
-                            break;
-                        default:
-                            System.out.println("Please type 'Todo' or 'Deadline /by' or 'Event /at' to add task. Type 'List' to see tasks and 'Bye' to exit");
-//                            addTask(new Todo(line));
-                    }
-                    break;
+            try {
+                switch (line.toUpperCase()) {
+                    case "LIST":
+                        GetList();
+                        break;
+                    case "BYE":
+                        System.out.println("Bye. Hope to see you again soon!");
+                        return;
+                    default:
+                        switch (linePart[0].toUpperCase()) {
+                            case "DONE":
+                                markAsDone(Integer.parseInt(linePart[1]));
+                                break;
+                            case "TODO":
+                                if (linePart[1].isBlank()){
+                                    throw new ArrayIndexOutOfBoundsException();
+                                } else{
+                                    addTask(new Todo(linePart[1]));
+                                }
+                                break;
+                            case "DEADLINE":
+
+                                String DeadlineArr[] = linePart[1].split("/by", 2);
+                                addTask(new Deadlines(DeadlineArr[0], DeadlineArr[1]));
+                                ;
+                                break;
+                            case "EVENT":
+                                String EventArr[] = linePart[1].split("/at", 2);
+                                addTask(new Events(EventArr[0], EventArr[1]));
+                                ;
+                                break;
+                            default:
+                                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+//                                System.out.println("Please type 'Todo' or 'Deadline /by' or 'Event /at' to add task. Type 'List' to see tasks and 'Bye' to exit");
+                        }
+                        break;
+                }
+            }
+            catch (ArrayIndexOutOfBoundsException e){
+                System.out.println("OOPS!!! The description of todo cannot be empty");
+            }
+            catch (DukeException e){
+                System.out.println(e);
             }
         }
     }
