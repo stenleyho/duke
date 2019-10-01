@@ -7,9 +7,9 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markAsDone(boolean isDone)
+    public void markAsDone()
     {
-        this.isDone = isDone;
+        this.isDone = true;
     }
 
     public String getStatusIcon() {
