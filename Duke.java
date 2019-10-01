@@ -1,33 +1,9 @@
-import javax.swing.*;
 import java.util.*;
 
 public class Duke {
     private static Task[] tasks = new Task[100];
+    private static ArrayList<Task> Arrtasks = new ArrayList<>();
     private static int tCount = 0;
-
-    public static void addTask(Task t){
-        tasks[tCount] = t;
-        System.out.println("-----------------------------------------------");
-        System.out.println("added:" + t.getDescription());
-        System.out.println("-----------------------------------------------");
-        tCount++;
-    }
-
-    public static void GetList() {
-        System.out.println("-----------------------------------------------");
-            for (int i=0; i<tCount; i++) {
-                System.out.println(i + 1 + ". " + tasks[i]);
-            }
-        System.out.println("-----------------------------------------------");
-    }
-
-    public static void markAsDone(int pos) {
-         tasks[pos-1].markAsDone(true);
-        System.out.println("-----------------------------------------------");
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println("    [" +  tasks[pos-1].getStatusIcon() + "]" +  tasks[pos-1].getDescription());
-        System.out.println("-----------------------------------------------");
-    }
 
     public static void main(String[] args) {
         String logo = " ____        _        \n"
@@ -55,7 +31,7 @@ public class Duke {
                     default:
                         switch (linePart[0].toUpperCase()) {
                             case "DONE":
-                                markAsDone(Integer.parseInt(linePart[1]));
+                                goMarkDone(Integer.parseInt(linePart[1]));
                                 break;
                             case "TODO":
                                 if (linePart[1].isBlank()){
@@ -65,7 +41,6 @@ public class Duke {
                                 }
                                 break;
                             case "DEADLINE":
-
                                 String DeadlineArr[] = linePart[1].split("/by", 2);
                                 addTask(new Deadlines(DeadlineArr[0], DeadlineArr[1]));
                                 ;
@@ -75,9 +50,11 @@ public class Duke {
                                 addTask(new Events(EventArr[0], EventArr[1]));
                                 ;
                                 break;
+                            case "DELETE":
+                                deleteTask(Integer.parseInt(linePart[1]));
+                                break;
                             default:
                                 throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-//                                System.out.println("Please type 'Todo' or 'Deadline /by' or 'Event /at' to add task. Type 'List' to see tasks and 'Bye' to exit");
                         }
                         break;
                 }
@@ -87,12 +64,13 @@ public class Duke {
             }
             catch (DukeException e){
                 System.out.println(e);
+                System.out.println("Please type 'Todo' or 'Deadline /by' or 'Event /at' to add task. Type 'List' to see tasks and 'Bye' to exit");
             }
         }
     }
 
     public static void addTask(Todo t){
-        tasks[tCount] = t;
+        Arrtasks.add(t);
         System.out.println("-----------------------------------------------");
         System.out.println("Got it. I've added this task: :");
         System.out.println(t);
@@ -102,7 +80,7 @@ public class Duke {
     }
 
     public static void addTask(Deadlines t){
-        tasks[tCount] = t;
+        Arrtasks.add(t);
         System.out.println("-----------------------------------------------");
         System.out.println("Got it. I've added this task: :");
         System.out.println(t);
@@ -112,12 +90,37 @@ public class Duke {
     }
 
     public static void addTask(Events t){
-        tasks[tCount] = t;
+        Arrtasks.add(t);
         System.out.println("-----------------------------------------------");
         System.out.println("Got it. I've added this task: :");
         System.out.println(t);
         tCount++;
         System.out.println("Now you have " + tCount + " tasks in the list");
         System.out.println("-----------------------------------------------");
+    }
+
+    public static void GetList() {
+        System.out.println("-----------------------------------------------");
+        for (int i=0; i<Arrtasks.size(); i++) {
+            System.out.println(i + 1 + ". " + Arrtasks.get(i));
+        }
+        System.out.println("-----------------------------------------------");
+    }
+
+    public static void goMarkDone(int pos) {
+        Arrtasks.get(pos - 1).markAsDone();
+        System.out.println("-----------------------------------------------");
+        System.out.println("Nice! I've marked this task as done:");
+        System.out.println(Arrtasks.get(pos-1));
+        System.out.println("-----------------------------------------------");
+    }
+
+    public static void deleteTask(int pos){
+        System.out.println("-----------------------------------------------");
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(Arrtasks.get(pos-1));
+        Arrtasks.remove(pos-1);
+        tCount--;
+        System.out.println("Now you have " + tCount + " tasks in the list");
     }
 }
