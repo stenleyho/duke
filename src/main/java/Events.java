@@ -9,16 +9,14 @@ public class Events extends Task {
         this.at = at;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
     @Override
     public String toString() {
         return "[E] [" + super.getStatusIcon() +"]" + super.getDescription() + "(at:" + at + ")" ;
+    }
+
+    @Override
+    public String writeToFile()
+    {
+        return "E" + super.writeToFile() + super.getDescription() + " | " + at;
     }
 }

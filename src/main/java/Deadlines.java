@@ -10,16 +10,14 @@ public class Deadlines extends Task {
         this.by = by;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
-
     @Override
     public String toString() {
         return "[D] [" + super.getStatusIcon() +"]" + super.getDescription()  + "(by:" + by + ")" ;
+    }
+
+    @Override
+    public String writeToFile()
+    {
+        return "D" + super.writeToFile() + super.getDescription() + " | " + by;
     }
 }

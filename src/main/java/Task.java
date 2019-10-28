@@ -7,13 +7,13 @@ public class Task {
         this.isDone = false;
     }
 
-    public void markAsDone(boolean isDone)
+    public void markAsDone(boolean Done)
     {
-        this.isDone = isDone;
+        this.isDone = Done;
     }
 
     public String getStatusIcon() {
-        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
+        return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols "\u2713" : "\u2718"
     }
 
     public String getDescription()
@@ -26,4 +26,9 @@ public class Task {
         return "[" + this.getStatusIcon() + "]" + this.getDescription();
     }
 
+    public String writeToFile()
+    {
+        Integer intIsDone = isDone ? 1 : 0;
+        return " | " + intIsDone + " | ";
+    }
 }
