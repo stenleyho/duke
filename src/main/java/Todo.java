@@ -7,16 +7,15 @@ public class Todo extends Task
         super(description);
         isDone=false;
     }
-    public void setDone(boolean done) {
-        isDone = done;
-    }
-
-    public boolean isDone() {
-        return isDone;
-    }
 
     @Override
     public String toString() {
         return "[T] [" + super.getStatusIcon() +"]" + super.getDescription();
+    }
+
+    @Override
+    public String writeToFile()
+    {
+        return "T" + super.writeToFile() + super.getDescription();
     }
 }
