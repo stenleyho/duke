@@ -1,11 +1,12 @@
 package Ui;
+
 import java.util.Scanner;
 
-public class Ui {
-    public void showLoadingError()
-    {
+/**
+ * The user interface of Duke
+ */
 
-    }
+public class Ui {
 
     public void showWelcome(){
         String logo = " ____        _        \n"
@@ -30,8 +31,9 @@ public class Ui {
         return in.nextLine();
     }
     public static void showError(String message){
-        printUI( message +  System.lineSeparator());
+        printUI( message );
     }
+
     public static void sayBye(){
         printUI("Bye. Hope to see you again soon!");
     }
