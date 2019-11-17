@@ -27,7 +27,6 @@ public class Events extends Task {
     @Override
     public String writeToFile()
     {
-        //return "E | " + isDone + " | " + this.getDescription();
         return "E" + super.writeToFile() + super.getDescription() + " | " + at;
     }
 }

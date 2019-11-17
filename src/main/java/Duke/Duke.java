@@ -9,7 +9,17 @@ import Command.Command;
 import Exception.DukeException;
 import java.io.IOException;
 
+/**
+ * Duke is a task scheduler using console for input and output of task and schedules
+ */
+
 public class Duke {
+
+    public static void main(String[] args) {
+        String filePath = "data/Task.txt";
+        new Duke(filePath).run();
+    }
+
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -19,8 +29,9 @@ public class Duke {
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            ui.showLoadingError();
+        }
+        catch (IOException e) {
+            ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -43,9 +54,5 @@ public class Duke {
         }
         storage.save(tasks);
         ui.sayBye();
-    }
-
-    public static void main(String[] args) {
-        new Duke("data/Task.txt").run();
     }
 }
