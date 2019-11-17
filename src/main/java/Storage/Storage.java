@@ -44,13 +44,15 @@ public class Storage {
         return tasks.getTaskitems();
     }
 
-    public ArrayList<Task> load()
+    public ArrayList<Task> load() throws IOException
     {
         File f = new File(strFilePath);
         ArrayList<Task> t;
-        if (!f.exists()){
-            t = new ArrayList<>();
-        }
+
+            if (!f.exists()) {
+                t = new ArrayList<>();
+            }
+
         t = readTasksFromFile();
         return t;
     }
@@ -66,7 +68,8 @@ public class Storage {
                     saveFile(strFilePath, tasks.get(i).writeToFile(), i == 0 ? false : true);
                 }
             }
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             System.out.println("Unable to write into file!!");
         }
@@ -85,9 +88,7 @@ public class Storage {
             fw = new FileWriter(filePath);
         }
         fw.write(texttoadd);
-        fw.write(System.getProperty( "line.separator"));
-
+        fw.write(System.getProperty("line.separator"));
         fw.close();
     }
-
 }
