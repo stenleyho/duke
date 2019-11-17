@@ -10,7 +10,6 @@ public class Deadlines extends Task {
         super(description);
         isDone=false;
         this.by = by;
-        //System.out.println("Description:" + this.description + "; by: " + this.by);
     }
 
     public void setDone(boolean done) {
@@ -29,7 +28,6 @@ public class Deadlines extends Task {
     @Override
     public String writeToFile()
     {
-        //return "D | " + isDone + " | " + this.getDescription();
         return "D" + super.writeToFile() + super.getDescription() + " | " + by;
     }
 }

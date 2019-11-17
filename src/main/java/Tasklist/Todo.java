@@ -25,7 +25,6 @@ public class Todo extends Task
     @Override
     public String writeToFile()
     {
-        //return "D | " + isDone + " | " + this.getDescription();
         return "T" + super.writeToFile() + super.getDescription() ;
     }
 }

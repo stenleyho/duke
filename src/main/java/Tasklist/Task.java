@@ -1,8 +1,12 @@
 package Tasklist;
 
+import java.time.LocalDateTime;
+
 public class Task {
     protected String description;
     protected boolean isDone;
+//    protected LocalDateTime date;
+
 
     public Task(String description) {
         this.description = description;
@@ -23,17 +27,14 @@ public class Task {
         return description;
     }
 
-    //@Override
+    @Override
     public String toString(){
         return "[" + this.getStatusIcon() + "]" + this.getDescription();
     }
 
     public String writeToFile()
     {
-        //return "[" + this.getStatusIcon() + "]" + this.getDescription();
         Integer intIsDone = isDone ? 1 : 0;
         return " | " + intIsDone + " | ";
-
-        //return " | " + String.valueOf(int intIsDone = isDone ? 1 : 0) + " | ";
     }
 }
